@@ -1,0 +1,57 @@
+@charset "UTF-8";
+.board-table {
+  font-size: 13px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.board-table a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+  color: inherit;
+  text-decoration-line: none;
+}
+.board-table th {
+  text-align: center; 
+  padding: 14px 0; 
+  border-top: 1px solid #e7e7e7; 
+  border-right: 1px solid #e7e7e7;
+}
+.board-table .no{
+  width: 5%; 
+}
+.board-table .subject{
+  width: 50%; 
+}
+.board-table .writer{
+  width: 10%; 
+}
+.board-table .Date{
+  width: 15%; 
+}
+.board-table .hit{
+  width: 10%; 
+}
+.board-table .point{
+  width: 10%; 
+  border-right:none;
+}
+.board-table td {
+   padding: 14px 0; 
+   border-top: 1px solid #e7e7e7; 
+   border-right: 1px solid #e7e7e7;
+   text-align: center; 
+   display: table-cell; 
+   vertical-align: inherit; 
+   unicode-bidi: isolate;
+}
+.board-table .last-td{
+  border-right:none;
+}
+.container{
+   margin-left: 100px;
+   margin-right: 100px;
+}

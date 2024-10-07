@@ -1,0 +1,47 @@
+@charset "UTF-8";
+.a{
+	color: inherit;
+	text-decoration-line: none;
+}
+.title-row {
+	padding: .5rem .75rem;
+    font-size: 1.1rem;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: var(--color-bd-outer);
+    background-color: var(--color-bg-focus);
+    border-color: #bbb;
+    background-color: #eee;
+}
+.title-row .title{
+    display: inline-block;
+}
+.writer-row{
+	width: 100%;
+	border-bottom: 1px solid;
+}
+.writer {
+	width: 50%;
+	border-bottom: 1px solid;
+    float:left
+}
+.date{
+	width: 50%;
+	border-bottom: 1px solid;
+	text-align: right;
+    float:right
+}
+.reviewlist{
+	margin-top: 10px;
+    vertical-align: right;
+}
+.content {
+	border-bottom: 1px solid;
+    border-color: var(--color-bd-outer);
+    padding: .8rem;
+    min-height: 400px;
+}
+.container{
+   margin-left: 100px;
+   margin-right: 100px;
+}

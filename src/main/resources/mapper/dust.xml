@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.DustDAO">
+	<insert id="insert" parameterType="dust" useGeneratedKeys="true" keyProperty="air_no">
+		insert into air_dust(air_time,air_grade,regid) values(#{air_time},#{air_grade},#{regid})
+	</insert>
+	
+	<delete id="autoDelete">
+		delete from air_dust
+	</delete>
+	
+	<select id="getOne" parameterType="weather" resultType="dust">
+		select * from air_dust where regid = #{regid} and air_time = #{wtime}
+	</select>
+	
+	<select id="getTwo" parameterType="weather" resultType="dust">
+		select * from air_dust where regid = #{regid} and air_time = #{wtime2}
+	</select>
+	
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.CampDAO">
+	<!-- 캠핑장 정보입력 -->
+	<insert id="insert" parameterType="camp" useGeneratedKeys="true" keyProperty="camp_no">
+		insert into camping(camp_name,camp_intro,camp_addr,camp_addr2,camp_regid,camp_lat,camp_long,camp_tel,camp_hp,camp_resve,camp_image) values(#{camp_name},#{camp_intro},#{camp_addr},#{camp_addr2},#{camp_regid},#{camp_lat},#{camp_long},#{camp_tel},#{camp_hp},#{camp_resve},#{camp_image})
+	</insert>
+	
+	<!-- 캠핑장 상세정보 -->
+	<select id="getCamp" parameterType="int" resultType="camp">
+		select * from camping where camp_no=#{camp_no}
+	</select>
+	
+	<!-- 캠핑장 추천 -->
+	<update id="spotLike" parameterType="int">
+		update camping set camp_point=camp_point+1 where camp_no=#{camp_no}
+	</update>
+	
+	<!-- 캠핑장 추천리스트 -->
+	<select id="bestCampList" resultType="camp">
+		SELECT camp_no,camp_name,camp_image,camp_regid FROM camping where camp_regid like #{regid}
+	</select>
+	
+	<!-- 캠핑장 모든 정보 조회 -->
+	<select id="camplist" parameterType="int" resultType="camp">
+		select * from camping limit #{start}, 9
+	</select>
+	
+	<!--캠핑장 지역1 코드 조회(중복x) -->
+	<select id="camp_regid_list" resultType="String">
+		select distinct camp_regid from camping order by camp_regid asc
+	</select>
+	
+	<!--캠핑장 지역2 코드 조회 -->
+	<select id="camp_regid2_list" parameterType="String" resultType="String">
+		select distinct camp_addr2 from camping 
+		where camp_regid= #{selected_region1} 
+		order by camp_addr2 asc
+	</select>	
+	
+	<!-- 캠핑장 지역1 data 조회 -->
+	<select id="camp1_list" parameterType="Map" resultType="camp">
+		select * from camping where camp_regid = #{selected_region1}
+		limit #{start}, 9
+	</select>
+	
+	<!-- 캠핑장 지역2 data 조회 -->
+	<select id="camp2_list" parameterType="Map" resultType="camp">
+		select * from camping where camp_addr2 = #{selected_region2}
+		limit #{start}, 9	
+	</select>
+	
+	<!-- 캠핑장 전체글 갯수 -->
+	<select id="camp_getCount" resultType="int">
+		select count(*) from camping
+	</select>
+	
+	<!-- 캠핑장 지역1 글갯수 -->
+	<select id="camp1_getCount" parameterType="String" resultType="int">
+		select count(*) from camping
+		where camp_regid = #{selected_region}
+	</select>
+	
+	<!-- 캠핑장 지역2 글갯수 -->
+	<select id="camp2_getCount" parameterType="String" resultType="int">
+		select count(*) from camping
+		where camp_addr2 = #{selected_region2}
+	</select>
+	
+	<!-- 캠핑장 이름 검색 글갯수 -->
+	<select id="campname_getCount" parameterType="String" resultType="int">
+		select count(*) from camping where camp_name like concat('%',#{name},'%')
+	</select>
+	
+	<!-- 캠핑장 이름 > data조회 -->
+	<select id="camp_namelist" parameterType="Map" resultType="camp">
+		select * from camping where camp_name like concat('%',#{name},'%')
+		limit #{start}, 9
+	</select>
+
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.BestLocDAO">
+
+<select id="select" resultType="com.example.demo.model.Bestloc">
+	select b.regid, b.pop,count(b.pop), b.sky, count(b.sky), a.air_grade, a.air_time from air_dust a, short_frct b where b.regid = a.regid group by b.regid, b.pop, b.sky,a.air_grade, a.air_time HAVING COUNT(*) order by b.pop asc,count(b.pop) desc,b.sky asc limit 0,1
+</select>
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ReviewDAO">
+
+	<!-- 글작성 -->
+	<insert id="insert" parameterType="reviewDTO">
+		insert into review_board(rb_subject,rb_content,rb_writer,rb_date,rb_hit,rb_point,rb_rank) values(#{rb_subject},#{rb_content},#{rb_writer},sysdate(),#{rb_hit},#{rb_point},#{rb_rank})
+	</insert>
+	
+	<!-- 글갯수 -->
+	<select id="getCount" resultType="int">
+		select count(*) from review_board
+	</select>
+	
+	<!-- 글목록 -->
+	<select id="getList" parameterType="int" resultType="reviewDTO">
+		select * from review_board order by rb_no desc limit #{offset}, 10
+	</select>
+	
+	<!-- 검색글갯수 -->
+	<select id="getSearchCount" parameterType="searchDTO" resultType="int">
+		select count(*) from review_board 
+		<if test= "sel=='rb_writer'">
+		where rb_writer like concat('%',#{find},'%') 
+		</if>
+		<if test= "sel=='rb_content'">
+		where rb_content like concat('%',#{find},'%') 
+		</if>
+		<if test= "sel=='rb_subject'">
+		where rb_subject like concat('%',#{find},'%') 
+		</if>
+	</select>
+
+ 	<!-- 검색목록 -->
+	<select id="searchList" parameterType="searchDTO" resultType="reviewDTO">
+		select * from review_board 
+		<if test= "sel=='rb_writer'">
+		where rb_writer like concat('%',#{find},'%') 
+		</if>
+		<if test= "sel=='rb_content'">
+		where rb_content like concat('%',#{find},'%') 
+		</if>
+		<if test= "sel=='rb_subject'">
+		where rb_subject like concat('%',#{find},'%') 
+		</if>
+		order by rb_no desc limit #{offset}, 10
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updatehit" parameterType="int">
+		update review_board set rb_hit=rb_hit+1 where rb_no = #{rb_no}
+	</update>
+	
+	<!-- 상세정보 구하기 -->
+	<select id="getBoard" parameterType="int" resultType="reviewDTO">
+		select * from review_board where rb_no = #{rb_no}
+	</select>
+	
+	<!-- 글수정 -->
+	<update id="update" parameterType="reviewDTO">
+		update review_board set rb_subject=#{rb_subject}, rb_content=#{rb_content} where rb_no = #{rb_no}
+	</update>
+	
+	<!-- 글삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from review_board where rb_no = #{rb_no}
+	</delete>
+	
+</mapper>

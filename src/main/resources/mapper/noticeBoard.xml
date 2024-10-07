@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.NoticeBoardDAO">
+	<insert id="insert" parameterType="noticeboard" useGeneratedKeys="true" keyProperty="nb_no">
+		insert into noticeboard(nb_title,nb_content,nb_date) values(#{nb_title},#{nb_content},now())
+	</insert>
+	
+	<select id="select" resultType="noticeboard">
+		select * from noticeboard order by nb_no DESC limit #{startRow} , 10
+	</select>
+	
+	<select id="selectmain" resultType="noticeboard" parameterType="String">
+		select * from noticeboard order by nb_no DESC
+	</select>
+	
+	<update id="update">
+		update noticeboard set nb_title=#{nb_title},nb_content=#{nb_content} where nb_no=#{nb_no}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from noticeboard where nb_no=#{nb_no}
+	</delete>
+	
+	<select id="getlist" resultType="noticeboard" parameterType="int">
+		select * from noticeboard where nb_no=#{nb_no}
+	</select>
+	
+	<select id="getTotal" resultType="int" parameterType="noticeboard">
+		select count(*) from noticeboard
+	</select>
+</mapper>

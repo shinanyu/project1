@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.SfrctDAO">
+	<insert id="insert" parameterType="sfrct" useGeneratedKeys="true" keyProperty="sfrct_no">
+		insert into short_frct(regid,sfrct_time,tmp,wsd,sky,pop,reh,pty) values(#{regid},#{sfrct_time},#{tmp},#{wsd},#{sky},#{pop},#{reh},#{pty})
+	</insert>
+	
+	<delete id="autoDelete">
+		delete from short_frct
+	</delete>
+	
+	<select id="getWeather" parameterType="String" resultType="sfrct">
+		select * from short_frct where regid = #{regid}
+	</select>
+	
+	<select id="allRegWeather" parameterType="String" resultType="sfrct">
+		select * from short_frct where sfrct_time = #{sfrct_time}
+	</select>
+	
+</mapper>

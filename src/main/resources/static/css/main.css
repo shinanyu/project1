@@ -1,0 +1,35 @@
+@charset "UTF-8";
+.a{
+	color: inherit;
+	text-decoration-line: none;
+}
+.container{
+	width: 90%;
+    margin: 10px auto;
+    display: flex;
+}
+.notice{
+	flex:1;
+    width:30%;
+    margin: 0px 30px;
+}
+.weather{
+	flex:1;
+    width:30%;
+    margin: 0px 100px;
+    box-sizing: border-box;
+}
+.noticetable{
+	font-size: 13px;
+	width: 100%;
+}
+.noticetable th, .noticetable td {
+  padding: 14px 0;
+}
+.noticetable tbody th{
+	text-align: center;
+}
+.noticetable tbody td{
+	border-top: 1px solid #e7e7e7;
+	text-align: center;
+}

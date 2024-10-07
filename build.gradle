@@ -1,0 +1,63 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.project1'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// org.json
+	implementation 'org.json:json:20231013'
+	// json-simple
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	// embed tomcat
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	
+	// JSP에서 스프링 시큐리티 태그를 사용
+	implementation 'org.springframework.security:spring-security-taglibs'
+	// 스프링 시큐리티의 핵심 모듈로, 인증 및 권한 부여를 담당
+	implementation 'org.springframework.security:spring-security-core:6.2.3'
+	// 웹 애플리케이션에서 사용되는 스프링 시큐리티 모듈로, HTTP 요청 수준의 보안을 처리
+	implementation 'org.springframework.security:spring-security-web:6.2.1'
+	
+	implementation 'javax.servlet:javax.servlet-api:4.0.1'
+	// jakarta jstl
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.0'
+	implementation 'jakarta.servlet:jakarta.servlet-api'
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.named('bootBuildImage') {
+	builder = 'paketobuildpacks/builder-jammy-base:latest'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

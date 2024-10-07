@@ -1,0 +1,18 @@
+# port
+server:
+  port: 80
+
+# My-SQL Setting
+spring:
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://mydb.cduwswms8soj.ap-northeast-2.rds.amazonaws.com:3306/gangnam_project?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+      username: project1
+      password: project1
+      
+# prefix and suffix
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp

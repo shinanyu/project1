@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.LfrctDAO">
+	<insert id="insert" parameterType="lfrct" useGeneratedKeys="true" keyProperty="lfrct_no">
+		insert into long_frct(regid,lfrct_time,tem_min,tem_max,sky,pop) values(#{regid},#{lfrct_time},#{tem_min},#{tem_max},#{sky},#{pop})
+	</insert>
+	
+	<delete id="autoDelete">
+		delete from long_frct
+	</delete>
+	
+	<select id="getWeek" parameterType="String" resultType="lfrct">
+		select * from long_frct where regid = #{regid}
+	</select>
+	
+</mapper>

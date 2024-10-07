@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.MemberDAOImpl">
+	<!-- 회원가입 -->
+    <insert id="insertNew" parameterType="member">
+    	insert into member (mem_id, mem_pw, mem_name, mem_phone, mem_email) values
+    	( #{mem_id}, #{mem_pw}, #{mem_name}, #{mem_phone}, #{mem_email})
+    </insert>
+	<!-- id 상세정보 -->
+    <select id="checkMemberId" parameterType="String" resultType="member">
+    	select * from member where mem_id=#{mem_id}
+    </select>
+	<!-- 회원탈퇴 -->
+    <update id="deleteMember" parameterType="member">
+    	update member set mem_active = "2", mem_date= now() where mem_id = #{mem_id}
+    </update>
+	<!-- 회원수정 -->
+    <update id="updateMem" parameterType="member">
+    	update member set mem_name = #{mem_name}, mem_phone = #{mem_phone}, mem_email = #{mem_email} where mem_id = #{mem_id}
+    </update>
+	<!-- 회원카운트 -->
+	<select id="getCount" resultType="int">
+		select count(*) from member where mem_id != 'manager'
+	</select>
+	<!-- 회원리스트 -->
+	<select id="getUserList" parameterType="int" resultType="member">
+		select * from member where mem_id != 'manager' limit #{offset}, 10
+	</select>
+	<!-- 회원경고 -->
+	<update id="addWarning" parameterType="String">
+		update member set warningstack=warningstack+1 where mem_id = #{mem_id}
+	</update>
+	
+</mapper>
+
+
+
+
+
+	
+
+

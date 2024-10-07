@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.TourDAO">
+	<!-- 관광지 정보입력 -->
+	<insert id="insert" parameterType="tour" useGeneratedKeys="true" keyProperty="tour_no">
+		insert into tour(tour_name,tour_intro,tour_addr,tour_addr2,tour_regid,tour_lat,tour_long,tour_tel,tour_depart) values(#{tour_name},#{tour_intro},#{tour_addr},#{tour_addr2},#{tour_regid},#{tour_lat},#{tour_long},#{tour_tel},#{tour_depart})
+	</insert>
+	
+	<!-- 관광지 상세정보 -->
+	<select id="getTour" parameterType="int" resultType="tour">
+		select * from tour where tour_no=#{tour_no}
+	</select>
+	
+	<!-- 관광지 추천 -->
+	<update id="spotLike" parameterType="int">
+		update tour set tour_point=tour_point+1 where tour_no=#{tour_no}
+	</update>
+	
+	<!-- 관광지 모든 정보 조회 -->	
+	<select id="tourlist" parameterType="int" resultType="tour">
+		select * from tour limit #{start}, 9
+	</select>	
+	
+	<!-- 관광지 지역1 코드 조회 -->
+	<select id="tour_regid_list" resultType="String">
+		select distinct tour_regid from tour order by tour_regid asc
+	</select>
+	
+	<!-- 관광지 지역2 코드 조회 -->
+	<select id="tour_regid2_list" parameterType="String" resultType="String">
+		select distinct tour_addr2 from tour 
+		where tour_regid= #{selected_region1} 
+		order by tour_addr2 asc
+	</select>
+	
+	<!-- 관광지 지역1 data 조회 -->
+	<select id="tour1_list" parameterType="Map" resultType="tour">
+		select * from tour 
+		where tour_regid = #{selected_region1}
+		limit #{start}, 9
+	</select>
+	
+	<!-- 관광지 지역2 data 조회 -->
+	<select id="tour2_list" parameterType="Map" resultType="tour">
+		select * from tour 
+		where tour_addr2 = #{selected_region2}
+		limit #{start}, 9	 
+	</select>
+	
+	<!-- 관광지 전체글 갯수 -->
+	<select id="tour_getCount" resultType="int">
+		select count(*) from tour
+	</select>
+	
+	<!-- 관광지 지역1 글갯수 -->
+	<select id="tour1_getCount" parameterType="String" resultType="int">
+		select count(*) from tour
+		where tour_regid = #{selected_region}
+	</select>
+	
+	<!-- 관광지 지역2 글갯수 -->
+	<select id="tour2_getCount" parameterType="String" resultType="int">
+		select count(*) from tour
+		where tour_addr2 = #{selected_region2}
+	</select>
+	
+	<!-- 관광지 이름검색 글갯수 -->
+	<select id="tourname_getCount" parameterType="String" resultType="int">
+		select count(*) from tour where tour_name like concat('%',#{name},'%')
+	</select>	
+		
+	<!-- 관광지 이름 > data 조회 -->
+	<select id="tour_namelist" parameterType="Map" resultType="tour">
+		select * from tour where tour_name like concat('%',#{name},'%')
+		limit #{start}, 9
+	</select>
+	
+</mapper>
